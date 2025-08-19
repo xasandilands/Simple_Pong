@@ -11,17 +11,22 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
+//reads shader files and returns string of shader code
 std::string get_contents(const char* file);
 
 class Shader
 {
 	public:
+		//refrence to shader
 		GLuint ShaderRef;
+		//constructir
 		Shader(const char* vertexPath, const char* fragmentPath);
+		//activate shader
 		void Activate();
+		//delete shader
 		void Delete();
 
+		//various uniform passing functions
 		void SetInt(const std::string& name, int value) const;
 		void SetFloat(const std::string& name, float value) const;
 		void SetMat4(const std::string& name, const glm::mat4 &mat) const;

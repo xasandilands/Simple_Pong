@@ -1,5 +1,6 @@
 #include"Shader.h"
 
+//reads file and returns contents in string
 std::string get_contents(const char* file)
 {
 	std::ifstream in(file, std::ios::binary);
@@ -18,21 +19,25 @@ std::string get_contents(const char* file)
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
+	//set string vars to shader files contents
 	std::string vShader = get_contents(vertexPath);
 	std::string fShader = get_contents(fragmentPath);
 
+	//convert strings to const chars*
 	const char* vShaderCode = vShader.c_str();
 	const char* fShaderCode = fShader.c_str();
 
-
+	//create shader objects and success and infolog for error checking
 	GLuint vertex, fragment;
 	GLint success;
 	GLchar infoLog[512];
 
+	//create and compile vertex shader
 	vertex = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertex, 1, &vShaderCode, NULL);
 	glCompileShader(vertex);
 
+	//check for errors
 	glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
@@ -40,31 +45,36 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 		std::cout << "COMPILATION ERROR IN VERTEX SHADER" << infoLog << std::endl;
 	}
 
-
+	//create and compile fragment shader
 	fragment = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragment, 1, &fShaderCode, NULL);
 	glCompileShader(fragment);
 
+	//create shader program, attach shadera and link program
 	ShaderRef = glCreateProgram();
 	glAttachShader(ShaderRef, vertex);
 	glAttachShader(ShaderRef, fragment);
 	glLinkProgram(ShaderRef);
 
+	//delete shaders not needed
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
 
 }
 
+//activate shader
 void Shader::Activate()
 {
 	glUseProgram(ShaderRef);
 }
 
+//delete shader
 void Shader::Delete()
 {
 	glDeleteProgram(ShaderRef);
 }
 
+//various uniform functions
 void Shader::SetInt(const std::string& name, int value) const
 {
 	glUniform1i(glGetUniformLocation(ShaderRef, name.c_str()), value);
