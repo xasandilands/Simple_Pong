@@ -18,8 +18,12 @@ std::string get_contents(const char* file)
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
-	const char* vShaderCode = get_contents(vertexPath).c_str();
-	const char* fShaderCode = get_contents(fragmentPath).c_str();
+	std::string vShader = get_contents(vertexPath);
+	std::string fShader = get_contents(fragmentPath);
+
+	const char* vShaderCode = vShader.c_str();
+	const char* fShaderCode = fShader.c_str();
+
 
 	GLuint vertex, fragment;
 	GLint success;
@@ -59,4 +63,49 @@ void Shader::Activate()
 void Shader::Delete()
 {
 	glDeleteProgram(ShaderRef);
+}
+
+void Shader::SetInt(const std::string& name, int value) const
+{
+	glUniform1i(glGetUniformLocation(ShaderRef, name.c_str()), value);
+}
+
+void Shader::SetFloat(const std::string& name, float value) const
+{
+	glUniform1f(glGetUniformLocation(ShaderRef, name.c_str()), value);
+}
+
+void Shader::SetMat4(const std::string& name, const glm::mat4 &mat) const
+{
+	glUniformMatrix4fv(glGetUniformLocation(ShaderRef, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+void Shader::SetVec4f(const std::string& name, const glm::vec4 &value) const
+{
+	glUniform4f(glGetUniformLocation(ShaderRef, name.c_str()), value.x, value.y, value.z, value.w);
+}
+
+void Shader::SetVec4f(const std::string& name, float x, float y, float z, float w) const
+{
+	glUniform4f(glGetUniformLocation(ShaderRef, name.c_str()), x, y, z, w);
+}
+
+void Shader::SetVec3f(const std::string& name, const glm::vec3& value) const
+{
+	glUniform3f(glGetUniformLocation(ShaderRef, name.c_str()), value.x, value.y, value.z);
+}
+
+void Shader::SetVec3f(const std::string& name, float x, float y, float z) const
+{
+	glUniform3f(glGetUniformLocation(ShaderRef, name.c_str()), x, y, z);
+}
+
+void Shader::SetVec2f(const std::string& name, const glm::vec2& value) const
+{
+	glUniform2f(glGetUniformLocation(ShaderRef, name.c_str()), value.x, value.y);
+}
+
+void Shader::SetVec2f(const std::string& name, float x, float y) const
+{
+	glUniform2f(glGetUniformLocation(ShaderRef, name.c_str()), x, y);
 }
