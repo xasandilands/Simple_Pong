@@ -19,12 +19,12 @@ class Shader
 	public:
 		//refrence to shader
 		GLuint ShaderRef;
-		//constructir
+		//constructor
 		Shader(const char* vertexPath, const char* fragmentPath);
+		~Shader();
 		//activate shader
 		void Activate();
-		//delete shader
-		void Delete();
+	
 
 		//various uniform passing functions
 		void SetInt(const std::string& name, int value) const;

@@ -24,7 +24,6 @@ class Game
 		//constructor and destructor
 		Game(GLuint width, GLuint height);
 		~Game();
-
 		//activate game
 		void Activate();
 
@@ -34,6 +33,8 @@ class Game
 		void Update(float dTime);
 		//render primitives
 		void Render();
+
+		
 };
 
 #endif

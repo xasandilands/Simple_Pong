@@ -58,6 +58,11 @@ Texture::Texture(const char* image, const char* texType, GLuint slot)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+Texture::~Texture()
+{
+	glDeleteTextures(1, &texRef);
+}
+
 void Texture::texUnit(Shader& shader, const char* uniform, GLuint unit)
 {
 	GLuint texUni = glGetUniformLocation(shader.ShaderRef, uniform);
@@ -74,9 +79,4 @@ void Texture::Bind()
 void Texture::Unbind()
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void Texture::Delete()
-{
-	glDeleteTextures(1, &texRef);
 }

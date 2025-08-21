@@ -17,15 +17,14 @@ class Texture
 		GLuint unit;
 		//constructor
 		Texture(const char* image, const char* texType, GLuint slot);
-
+		~Texture();
 		//set tex unit for shader
 		void texUnit(Shader& shader, const char* uniform, GLuint unit);
 		//bind texture
 		void Bind();
 		//unbind texture
 		void Unbind();
-		//delete texture
-		void Delete();
+		
 
 };
 

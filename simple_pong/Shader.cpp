@@ -62,16 +62,16 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 
 }
 
+//delete shader
+Shader::~Shader()
+{
+	glDeleteProgram(ShaderRef);
+}
+
 //activate shader
 void Shader::Activate()
 {
 	glUseProgram(ShaderRef);
-}
-
-//delete shader
-void Shader::Delete()
-{
-	glDeleteProgram(ShaderRef);
 }
 
 //various uniform functions
