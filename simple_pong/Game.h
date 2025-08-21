@@ -4,6 +4,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include"Shader.h"
+#include"Texture.h"
+#include"Sprite_Render.h"
+
 //enum for game state so switching between is easier
 enum GameState
 {
@@ -19,10 +23,10 @@ class Game
 		//GameState, keys(array for inputs), width and height vars
 		GameState State;
 		bool Keys[1024];
-		GLuint Width, Height;
+		unsigned int Width, Height;
 
 		//constructor and destructor
-		Game(GLuint width, GLuint height);
+		Game(unsigned int width, unsigned int height);
 		~Game();
 		//activate game
 		void Activate();

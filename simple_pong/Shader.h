@@ -20,10 +20,12 @@ class Shader
 		//refrence to shader
 		GLuint ShaderRef;
 		//constructor
-		Shader(const char* vertexPath, const char* fragmentPath);
+		Shader();
 		~Shader();
+		
+		void shaderCompile(const char* vertexPath, const char* fragmentPath);
 		//activate shader
-		void Activate();
+		Shader  &Activate();
 	
 
 		//various uniform passing functions

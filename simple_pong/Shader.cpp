@@ -17,7 +17,7 @@ std::string get_contents(const char* file)
 	throw std::runtime_error("Could not open file: " + std::string(file));
 }
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath)
+void Shader::shaderCompile(const char* vertexPath, const char* fragmentPath)
 {
 	//set string vars to shader files contents
 	std::string vShader = get_contents(vertexPath);
@@ -69,9 +69,10 @@ Shader::~Shader()
 }
 
 //activate shader
-void Shader::Activate()
+Shader &Shader::Activate()
 {
-	glUseProgram(ShaderRef);
+	glUseProgram(this->ShaderRef);
+	return *this;
 }
 
 //various uniform functions
