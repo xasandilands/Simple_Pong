@@ -38,6 +38,9 @@ class Game
 		//render primitives
 		void Render();
 
+	private:
+		Sprite_Render* gameRenderer;
+		Texture* tex1;
 		
 };
 
