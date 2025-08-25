@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{b1b190e6-7be7-4a0f-915e-9f1c7e15df85}</ProjectGuid>
-    <RootNamespace>simplepong</RootNamespace>
+    <ProjectGuid>{d18a5fa4-5126-4efd-8b20-369330a86e80}</ProjectGuid>
+    <RootNamespace>Game</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\njsan\GitHub\Simple_Pong\simple_pong\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\njsan\GitHub\Simple_Pong\simple_pong\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\njsan\GitHub\Simple_Pong\simple_pong\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\njsan\GitHub\Simple_Pong\simple_pong\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -133,27 +133,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="EBO.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Sprite_Render.cpp" />
     <ClCompile Include="stb_image.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="VAO.cpp" />
+    <ClCompile Include="VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="EBO.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="Sprite_Render.h" />
     <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="VAO.h" />
+    <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="default.frag" />
-    <None Include="default.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="rocks.jpg" />
+    <None Include="Default.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
