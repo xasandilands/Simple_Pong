@@ -10,6 +10,7 @@
 #include"VAO.h"
 #include"EBO.h"
 #include"Texture.h"
+#include"GameObject.h"
 
 unsigned int width = 1800, height = 900;
 
@@ -77,6 +78,8 @@ int main()
 	Texture Bricks("brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0);;
 	Bricks.texUnit(spriteShader, "tex0", 0);
 
+	GameObject Paddle(glm::vec2(0.5f, 0.5f), glm::vec2(0.5f, 0.5f));
+
 	glEnable(GL_DEPTH_TEST);
 
 
@@ -85,10 +88,12 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		spriteShader.Activate();
-		Bricks.Bind();
-		VAO1.Bind();
-		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+		//spriteShader.Activate();
+		//Bricks.Bind();
+		//VAO1.Bind();
+		//glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
+		Paddle.Draw(spriteShader, VAO1, Bricks);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
