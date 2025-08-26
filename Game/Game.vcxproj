@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\njsan\GitHub\Simple_Pong\Game\Libraries\include;C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\njsan\GitHub\Simple_Pong\Game\Libraries\lib;C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\njsan\GitHub\Simple_Pong\Game\Libraries\include;C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\njsan\GitHub\Simple_Pong\Game\Libraries\lib;C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -138,6 +138,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
   </ItemGroup>
@@ -145,12 +146,16 @@
     <ClInclude Include="EBO.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="default.frag" />
     <None Include="Default.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="brick.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

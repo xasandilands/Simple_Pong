@@ -9,28 +9,24 @@
 #include"VBO.h"
 #include"VAO.h"
 #include"EBO.h"
+#include"Texture.h"
 
 unsigned int width = 1800, height = 900;
 
 // Vertices coordinates
 GLfloat vertices[] =
 { //     COORDINATES     /        COLORS      /   TexCoord  //
-	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	
-	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	
-	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	
-	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	
-	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f
+	 0.5f, -0.5f, 0.0f,    0.44f, 0.89f, 0.33f,   0.0f, 0.0f,
+	 0.5f,  0.5f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 0.0f,
+	-0.5f,  0.5f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 1.0f,
+	-0.5f, -0.5f, 0.0f,    0.44f, 0.89f, 0.33f,    0.0f, 1.0f
 };
 
 // Indices for vertices order
 GLuint indices[] =
 {
-	0, 1, 2,
-	0, 2, 3,
-	0, 1, 4,
-	1, 2, 4,
-	2, 3, 4,
-	3, 0, 4
+	0, 1, 2, 
+	0, 2, 3
 };
 
 
@@ -70,12 +66,16 @@ int main()
 	VBO VBO1(vertices, sizeof(vertices));
 	EBO EBO1(indices, sizeof(indices));
 
-	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
-	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
 	VAO1.unBind();
 	VBO1.unBind();
 	EBO1.unBind();
+	
+	Texture Bricks("brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0);;
+	Bricks.texUnit(spriteShader, "tex0", 0);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -86,9 +86,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		spriteShader.Activate();
-
+		Bricks.Bind();
 		VAO1.Bind();
-
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(window);
