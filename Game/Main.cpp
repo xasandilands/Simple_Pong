@@ -17,10 +17,10 @@ unsigned int width = 1800, height = 900;
 // Vertices coordinates
 GLfloat vertices[] =
 { //     COORDINATES     /        COLORS      /   TexCoord  //
-	 0.5f, -0.5f, 0.0f,    0.44f, 0.89f, 0.33f,   0.0f, 0.0f,
-	 0.5f,  0.5f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 0.0f,
-	-0.5f,  0.5f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 1.0f,
-	-0.5f, -0.5f, 0.0f,    0.44f, 0.89f, 0.33f,    0.0f, 1.0f
+	 0.5f, -0.025f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 0.0f,
+	 0.5f,  0.025f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 1.0f,
+	-0.5f,  0.025f, 0.0f,    0.44f, 0.89f, 0.33f,   0.0f, 1.0f,
+	-0.5f, -0.025f, 0.0f,    0.44f, 0.89f, 0.33f,    0.0f, 0.0f
 };
 
 // Indices for vertices order
@@ -78,13 +78,19 @@ int main()
 	Texture Bricks("brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0);;
 	Bricks.texUnit(spriteShader, "tex0", 0);
 
-	GameObject Paddle(glm::vec2(0.5f, 0.5f), glm::vec2(0.5f, 0.5f));
+	GameObject Paddle(glm::vec2(0.7f, 0.25f), glm::vec2(0.5f, 0.5f));
 
 	glEnable(GL_DEPTH_TEST);
 
+	float deltaTime = 0.0f;
+	float lastFrame = 0.0f;
 
 	while (!glfwWindowShouldClose(window))
 	{
+		float currFrame = glfwGetTime();
+		deltaTime = currFrame - lastFrame;
+		lastFrame = currFrame;
+
 		glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -95,10 +101,19 @@ int main()
 
 		Paddle.Draw(spriteShader, VAO1, Bricks);
 
+		float speed = 1.5f;
+		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		{
+			Paddle.pos.y -= speed * deltaTime;
+		}
+		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		{
+			Paddle.pos.y += speed * deltaTime;
+		}
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-
 
 	return 0;
 }
