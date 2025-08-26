@@ -100,16 +100,7 @@ int main()
 		//glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 		Paddle.Draw(spriteShader, VAO1, Bricks);
-
-		float speed = 1.5f;
-		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		{
-			Paddle.pos.y -= speed * deltaTime;
-		}
-		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		{
-			Paddle.pos.y += speed * deltaTime;
-		}
+		Paddle.Inputs(deltaTime, window);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

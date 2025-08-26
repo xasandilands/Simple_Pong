@@ -22,7 +22,7 @@ public:
 	GameObject(glm::vec2 Pos, glm::vec2 Scale);
 
 	void Draw(Shader& shader, VAO& VAO, Texture& Tex);
-	void Inputs(float dtime);
+	void Inputs(float dtime, GLFWwindow* win);
 };
 
 #endif

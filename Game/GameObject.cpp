@@ -28,3 +28,20 @@ void GameObject::Draw(Shader& shader, VAO& VAO, Texture& Tex)
 	VAO.Bind();
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
+
+void GameObject::Inputs(float dtime, GLFWwindow* win)
+{
+	float speed = 1.5f;
+	if (glfwGetKey(win, GLFW_KEY_DOWN) == GLFW_PRESS)
+	{
+		pos.y -= speed * dtime;
+	}
+	if (glfwGetKey(win, GLFW_KEY_UP) == GLFW_PRESS)
+	{
+		pos.y += speed * dtime;
+	}
+
+	float halfHeight = scale.y / 2.0f;
+	if (pos.y + halfHeight > 1.0f) pos.y = 1.0f - halfHeight;
+	if (pos.y - halfHeight < -1.0f) pos.y = -1.0f + halfHeight;
+}
