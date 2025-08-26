@@ -48,6 +48,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h">
@@ -71,6 +74,9 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Default.vert">
@@ -82,6 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="grass.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>

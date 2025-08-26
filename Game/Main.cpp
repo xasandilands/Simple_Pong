@@ -11,6 +11,7 @@
 #include"EBO.h"
 #include"Texture.h"
 #include"GameObject.h"
+#include"Ball.h"
 
 unsigned int width = 1800, height = 900;
 
@@ -75,12 +76,14 @@ int main()
 	VBO1.unBind();
 	EBO1.unBind();
 	
-	Texture Bricks("brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0);;
+	Texture Bricks("brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0);
 	Bricks.texUnit(spriteShader, "tex0", 0);
 
-	GameObject Paddle(glm::vec2(0.7f, 0.25f), glm::vec2(0.5f, 0.5f));
+	Texture Grass("grass.png", GL_TEXTURE_2D, GL_TEXTURE1);
+	Grass.texUnit(spriteShader, "tex1", 1);
 
-	glEnable(GL_DEPTH_TEST);
+	GameObject Paddle(glm::vec2(0.7f, 0.25f), glm::vec2(0.5f, 0.5f));
+	Ball ball(glm::vec2(0.5f, 0.5f), glm::vec2(0.50f, 0.50f));
 
 	float deltaTime = 0.0f;
 	float lastFrame = 0.0f;
@@ -94,13 +97,19 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//spriteShader.Activate();
+		spriteShader.Activate();
 		//Bricks.Bind();
 		//VAO1.Bind();
 		//glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
+		glUniform1i(glGetUniformLocation(spriteShader.shaderRef, "useTex"), 0);
 		Paddle.Draw(spriteShader, VAO1, Bricks);
 		Paddle.Inputs(deltaTime, window);
+
+		glUniform1i(glGetUniformLocation(spriteShader.shaderRef, "useTex"), 1);
+		ball.Draw(spriteShader, VAO1, Grass);
+		//ball.movement(deltaTime, glm::vec2(1.0f, 1.0f));
+		
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
