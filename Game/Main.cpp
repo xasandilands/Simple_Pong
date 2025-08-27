@@ -10,7 +10,7 @@
 #include"VAO.h"
 #include"EBO.h"
 #include"Texture.h"
-#include"GameObject.h"
+#include"Paddle.h"
 #include"Ball.h"
 
 unsigned int width = 1800, height = 900;
@@ -31,10 +31,8 @@ GLuint indices[] =
 	0, 2, 3
 };
 
-
 int main()
 {
-
 	glfwInit();
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -75,6 +73,7 @@ int main()
 	VAO1.unBind();
 	VBO1.unBind();
 	EBO1.unBind();
+
 	
 	Texture Bricks("brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0);
 	Bricks.texUnit(spriteShader, "tex0", 0);
@@ -82,8 +81,10 @@ int main()
 	Texture Grass("grass.png", GL_TEXTURE_2D, GL_TEXTURE1);
 	Grass.texUnit(spriteShader, "tex1", 1);
 
-	GameObject Paddle(glm::vec2(0.7f, 0.25f), glm::vec2(0.5f, 0.5f));
-	Ball ball(glm::vec2(0.5f, 0.5f), glm::vec2(0.50f, 0.50f));
+	glm::mat4 projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, -1.0f, 1.0f);
+
+	Paddle paddle(glm::vec2(1700.0f, 450.0f), glm::vec2(200.0f, 300.0f));
+	Ball ball(glm::vec2(900.0f, 200.0f), 150.0f, glm::vec2(300.0f, 300.0f));
 
 	float deltaTime = 0.0f;
 	float lastFrame = 0.0f;
@@ -98,19 +99,16 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		spriteShader.Activate();
-		//Bricks.Bind();
-		//VAO1.Bind();
-		//glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
-
-		glUniform1i(glGetUniformLocation(spriteShader.shaderRef, "useTex"), 0);
-		Paddle.Draw(spriteShader, VAO1, Bricks);
-		Paddle.Inputs(deltaTime, window);
-
-		glUniform1i(glGetUniformLocation(spriteShader.shaderRef, "useTex"), 1);
-		ball.Draw(spriteShader, VAO1, Grass);
-		//ball.movement(deltaTime, glm::vec2(1.0f, 1.0f));
 		
+		glUniformMatrix4fv(glGetUniformLocation(spriteShader.shaderRef, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+		glUniform1i(glGetUniformLocation(spriteShader.shaderRef, "useTex"), 0);
+		paddle.Draw(spriteShader, VAO1, Bricks);
+		paddle.Inputs(deltaTime, window, height);
 
+		//glUniform1i(glGetUniformLocation(spriteShader.shaderRef, "useTex"), 1);
+		ball.Draw(spriteShader, VAO1, Bricks);
+		ball.Movement(deltaTime, glm::vec2((float)width, (float)height));
+		
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

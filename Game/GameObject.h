@@ -19,10 +19,8 @@ public:
 	glm::vec2 scale;
 
 	GameObject(glm::vec2 Pos, glm::vec2 Scale);
-	GameObject();
 
 	void Draw(Shader& shader, VAO& VAO, Texture& Tex);
-	void Inputs(float dtime, GLFWwindow* win);
 };
 
 #endif

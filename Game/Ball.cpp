@@ -1,38 +1,39 @@
 #include"Ball.h"
 
-
-Ball::Ball(glm::vec2 Pos, glm::vec2 Scale)
-	:GameObject(Pos, Scale)
+Ball::Ball(glm::vec2 pos, float radius, glm::vec2 speed)
+	:GameObject(pos, glm::vec2(radius*2.0f, radius*2.0f))
 {
+	this->speed = speed;
+	this->radius = radius;
 	stuck = true;
 }
 
-glm::vec2 Ball::movement(float dtime, glm::vec2 speed)
+void Ball::Movement(float dTime, glm::vec2 windowSize)
 {
-	if (!stuck)
+	if (stuck)
 	{
-		pos += speed * dtime;
-		if (pos.x <= -1.0f)
+		pos += speed * dTime;
+
+		if (pos.x - radius <= 0.0f)
 		{
 			speed.x = -speed.x;
-			pos.x = 0;
+			pos.x = radius;
 		}
-		else if (pos.x + scale.x >= 1.0f)
+		else if (pos.x + radius >= windowSize.x)
 		{
 			speed.x = -speed.x;
-			pos.x = 1.0f - scale.x;
+			pos.x = windowSize.x - radius;
 		}
-		if (pos.y <= -1.0f)
+
+		if (pos.y - radius <= 0.0f)
 		{
 			speed.y = -speed.y;
-			pos.y = 0.0f;
+			pos.y = radius;
+		}
+		else if(pos.y + radius >= windowSize.y)
+		{
+			speed.y = -speed.y;
+			pos.y = windowSize.y - radius;
 		}
 	}
-	return pos;
 }
-
-void Ball::reset(glm::vec2 start)
-{
-	pos = start;
-}
-
