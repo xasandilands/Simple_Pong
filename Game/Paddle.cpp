@@ -23,3 +23,9 @@ void Paddle::Inputs(float dtime, GLFWwindow* win, unsigned int height)
 	if (pos.y + halfHeight > height) pos.y = height - halfHeight;
 	if (pos.y - halfHeight < 0.0f) pos.y = halfHeight;
 }
+
+void Paddle::onCollision()
+{
+	pos.x = 450.0f;
+	pos.y = 450.0f;
+}

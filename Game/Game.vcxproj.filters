@@ -54,6 +54,9 @@
     <ClCompile Include="Paddle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Collisions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h">
@@ -83,6 +86,9 @@
     <ClInclude Include="Paddle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Collisions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Default.vert">
@@ -96,16 +102,7 @@
     <Image Include="brick.jpg">
       <Filter>Resource Files\Textures</Filter>
     </Image>
-    <Image Include="grass.png">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="circle.png">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="RedCirlce.png">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="greenCircle.png">
+    <Image Include="ring.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>

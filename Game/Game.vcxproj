@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glad.c" />
@@ -147,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="Collisions.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Paddle.h" />
@@ -162,10 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.jpg" />
-    <Image Include="circle.png" />
-    <Image Include="grass.png" />
-    <Image Include="greenCircle.png" />
-    <Image Include="RedCirlce.png" />
+    <Image Include="ring.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

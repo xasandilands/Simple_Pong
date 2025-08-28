@@ -13,7 +13,8 @@
 #include"Paddle.h"
 #include"Ball.h"
 
-unsigned int width = 900, height = 900;
+
+unsigned int width = 1400, height = 900;
 
 // Vertices coordinates
 GLfloat vertices[] =
@@ -99,13 +100,14 @@ int main()
 	Texture Bricks("brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0);
 	Bricks.texUnit(spriteShader, "tex0", 0);
 
-	Texture Grass("grass.png", GL_TEXTURE_2D, GL_TEXTURE1);
-	Grass.texUnit(spriteShader, "tex1", 1);
+	Texture Circle("ring.png", GL_TEXTURE_2D, GL_TEXTURE1);
+	Circle.texUnit(spriteShader, "tex1", 1);
 
 	glm::mat4 projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, -1.0f, 1.0f);
 
-	Paddle paddle(glm::vec2(700.0f, 450.0f), glm::vec2(200.0f, 300.0f));
+	Paddle paddle(glm::vec2(1300.0f, 450.0f), glm::vec2(200.0f, 300.0f));
 	Ball ball(glm::vec2(900.0f, 200.0f), 50.0f, glm::vec2(300.0f, 300.0f));
+	
 
 	float deltaTime = 0.0f;
 	float lastFrame = 0.0f;
@@ -129,9 +131,14 @@ int main()
 		paddle.Draw(spriteShader, VAO1, Bricks);
 		paddle.Inputs(deltaTime, window, height);
 
-		glUniform1i(glGetUniformLocation(spriteShader.shaderRef, "useTex"), 1);
-		ball.Draw(spriteShader, VAO2, Grass);
+		//glUniform1i(glGetUniformLocation(spriteShader.shaderRef, "useTex"), 1);
+		ball.Draw(spriteShader, VAO2, Circle);
 		ball.Movement(deltaTime, glm::vec2((float)width, (float)height));
+
+		if(ball.hasCollided(paddle))
+		{
+			paddle.onCollision();
+		}
 		
 		glfwSwapBuffers(window);
 		glfwPollEvents();

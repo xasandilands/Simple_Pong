@@ -37,3 +37,20 @@ void Ball::Movement(float dTime, glm::vec2 windowSize)
 		}
 	}
 }
+
+bool Ball::hasCollided(GameObject& paddle)
+{
+	{
+		if (pos.x < paddle.pos.x + paddle.scale.x &&
+			pos.x + scale.x > paddle.pos.x &&
+			pos.y < paddle.pos.y + paddle.scale.y &&
+			pos.y + scale.y > paddle.pos.y)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}

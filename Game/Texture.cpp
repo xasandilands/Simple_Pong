@@ -8,7 +8,7 @@ Texture::Texture(const char* img, GLenum texType, GLuint slot)
 
 	int width, height, numCh;
 
-	unsigned char* data = stbi_load(img, &width, &height, &numCh, STBI_rgb_alpha);
+	unsigned char* data = stbi_load(img, &width, &height, &numCh, 0);
 	if (!data)
 	{
 		throw std::runtime_error("FAILED TO LOAD TEXTURE");
@@ -25,9 +25,19 @@ Texture::Texture(const char* img, GLenum texType, GLuint slot)
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-
+	if (numCh == 4)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	}
+	else if (numCh == 3)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	}
+	else if (numCh == 1)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width, height, 0, GL_RED, GL_UNSIGNED_BYTE, data);
+	}
+	
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	stbi_image_free(data);

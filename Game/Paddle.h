@@ -8,6 +8,7 @@ class Paddle : public GameObject
 	public:
 		Paddle(glm::vec2 pos, glm::vec2 scale);
 		void Inputs(float dtime, GLFWwindow* win, unsigned int height);
+		void onCollision();
 };
 
 #endif
