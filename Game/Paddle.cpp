@@ -19,7 +19,7 @@ void Paddle::Inputs(float dtime, GLFWwindow* win, unsigned int height)
 		pos.y += speed * dtime;
 	}
 
-	float halfHeight = scale.y / 2.0f;
+	float halfHeight = scale.y / 4.0f;
 	if (pos.y + halfHeight > height) pos.y = height - halfHeight;
 	if (pos.y - halfHeight < 0.0f) pos.y = halfHeight;
 }

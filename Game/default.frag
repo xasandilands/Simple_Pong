@@ -1,6 +1,6 @@
 #version 330
 
-out vec4 Fragcolor;
+out vec4 FragColor;
 
 in vec3 color;
 in vec2 Tex;
@@ -13,10 +13,10 @@ void main()
 {
 	if(useTex == 0)
 	{
-		Fragcolor = texture(tex0, Tex);
+		FragColor = texture(tex0, Tex);
 	}
 	else if(useTex == 1)
 	{
-		Fragcolor = texture(tex1, Tex);
+		FragColor = texture(tex1, Tex);
 	}
 }

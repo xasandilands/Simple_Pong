@@ -13,7 +13,7 @@
 #include"Paddle.h"
 #include"Ball.h"
 
-unsigned int width = 1800, height = 900;
+unsigned int width = 900, height = 900;
 
 // Vertices coordinates
 GLfloat vertices[] =
@@ -21,7 +21,15 @@ GLfloat vertices[] =
 	 0.5f, -0.025f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 0.0f,
 	 0.5f,  0.025f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 1.0f,
 	-0.5f,  0.025f, 0.0f,    0.44f, 0.89f, 0.33f,   0.0f, 1.0f,
-	-0.5f, -0.025f, 0.0f,    0.44f, 0.89f, 0.33f,    0.0f, 0.0f
+	-0.5f, -0.025f, 0.0f,    0.44f, 0.89f, 0.33f,   0.0f, 0.0f
+};
+
+GLfloat BallVertices[] =
+{
+	0.5f, -0.5f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 0.0f,
+	0.5f,  0.5f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 1.0f,
+	-0.5f,  0.5f, 0.0f,   0.44f, 0.89f, 0.33f,   0.0f, 1.0f,
+	-0.5f, -0.5f, 0.0f,   0.44f, 0.89f, 0.33f,   0.0f, 0.0f
 };
 
 // Indices for vertices order
@@ -74,6 +82,19 @@ int main()
 	VBO1.unBind();
 	EBO1.unBind();
 
+	VAO VAO2;
+	VAO2.Bind();
+
+	VBO VBO2(BallVertices, sizeof(BallVertices));
+	EBO EBO2(indices, sizeof(indices));
+
+	VAO2.LinkAttrib(VBO2, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAO2.LinkAttrib(VBO2, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO2.LinkAttrib(VBO2, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
+	VAO2.unBind();
+	VBO2.unBind();
+	EBO2.unBind();
 	
 	Texture Bricks("brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0);
 	Bricks.texUnit(spriteShader, "tex0", 0);
@@ -83,11 +104,14 @@ int main()
 
 	glm::mat4 projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, -1.0f, 1.0f);
 
-	Paddle paddle(glm::vec2(1700.0f, 450.0f), glm::vec2(200.0f, 300.0f));
-	Ball ball(glm::vec2(900.0f, 200.0f), 150.0f, glm::vec2(300.0f, 300.0f));
+	Paddle paddle(glm::vec2(700.0f, 450.0f), glm::vec2(200.0f, 300.0f));
+	Ball ball(glm::vec2(900.0f, 200.0f), 50.0f, glm::vec2(300.0f, 300.0f));
 
 	float deltaTime = 0.0f;
 	float lastFrame = 0.0f;
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -95,7 +119,7 @@ int main()
 		deltaTime = currFrame - lastFrame;
 		lastFrame = currFrame;
 
-		glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+		glClearColor(0.0f, 0.7f, 0.9f, 0.5f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		spriteShader.Activate();
@@ -105,8 +129,8 @@ int main()
 		paddle.Draw(spriteShader, VAO1, Bricks);
 		paddle.Inputs(deltaTime, window, height);
 
-		//glUniform1i(glGetUniformLocation(spriteShader.shaderRef, "useTex"), 1);
-		ball.Draw(spriteShader, VAO1, Bricks);
+		glUniform1i(glGetUniformLocation(spriteShader.shaderRef, "useTex"), 1);
+		ball.Draw(spriteShader, VAO2, Grass);
 		ball.Movement(deltaTime, glm::vec2((float)width, (float)height));
 		
 		glfwSwapBuffers(window);
