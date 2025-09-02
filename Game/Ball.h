@@ -13,6 +13,7 @@ class Ball : public GameObject
 		Ball(glm::vec2 pos, float radius, glm::vec2 speed);
 		void Movement(float dTime, glm::vec2 windowSize);
 		bool hasCollided(GameObject& paddle);
+		void handleCollision();
 };
 
 #endif

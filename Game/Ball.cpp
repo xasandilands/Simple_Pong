@@ -54,3 +54,8 @@ bool Ball::hasCollided(GameObject& paddle)
 		}
 	}
 }
+
+void Ball::handleCollision()
+{
+	speed = -speed;
+}

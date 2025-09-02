@@ -137,7 +137,7 @@ int main()
 
 		if(ball.hasCollided(paddle))
 		{
-			paddle.onCollision();
+			ball.handleCollision();
 		}
 		
 		glfwSwapBuffers(window);
