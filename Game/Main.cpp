@@ -105,7 +105,7 @@ int main()
 
 	glm::mat4 projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, -1.0f, 1.0f);
 
-	Paddle paddle(glm::vec2(1300.0f, 450.0f), glm::vec2(200.0f, 300.0f));
+	Paddle paddle(glm::vec2(1300.0f, 450.0f), glm::vec2(200.0f, 400.0f));
 	Ball ball(glm::vec2(900.0f, 200.0f), 50.0f, glm::vec2(300.0f, 300.0f));
 	
 

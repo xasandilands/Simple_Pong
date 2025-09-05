@@ -9,7 +9,7 @@ Paddle::Paddle(glm::vec2 pos, glm::vec2 scale)
 
 void Paddle::Inputs(float dtime, GLFWwindow* win, unsigned int height)
 {
-	float speed = 300.0f;
+	float speed = 400.0f;
 	if (glfwGetKey(win, GLFW_KEY_DOWN) == GLFW_PRESS)
 	{
 		pos.y -= speed * dtime;
@@ -22,10 +22,4 @@ void Paddle::Inputs(float dtime, GLFWwindow* win, unsigned int height)
 	float halfHeight = scale.y / 4.0f;
 	if (pos.y + halfHeight > height) pos.y = height - halfHeight;
 	if (pos.y - halfHeight < 0.0f) pos.y = halfHeight;
-}
-
-void Paddle::onCollision()
-{
-	pos.x = 450.0f;
-	pos.y = 450.0f;
 }

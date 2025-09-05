@@ -9,6 +9,7 @@ class Ball : public GameObject
 		glm::vec2 speed;
 		float radius;
 		bool stuck;
+		int hitCount;
 
 		Ball(glm::vec2 pos, float radius, glm::vec2 speed);
 		void Movement(float dTime, glm::vec2 windowSize);

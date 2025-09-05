@@ -42,9 +42,9 @@ bool Ball::hasCollided(GameObject& paddle)
 {
 	{
 		if (pos.x < paddle.pos.x + paddle.scale.x &&
-			pos.x + scale.x > paddle.pos.x &&
+			pos.x + scale.x/2.0f > paddle.pos.x &&
 			pos.y < paddle.pos.y + paddle.scale.y &&
-			pos.y + scale.y > paddle.pos.y)
+			pos.y + scale.y/2.0f > paddle.pos.y)
 		{
 			return true;
 		}
@@ -57,5 +57,6 @@ bool Ball::hasCollided(GameObject& paddle)
 
 void Ball::handleCollision()
 {
-	speed = -speed;
+	speed = glm::vec2(-speed.x - 10.0f, -speed.y - 10.0f);
+	std::cout << speed.y << speed.x << std::endl;
 }
