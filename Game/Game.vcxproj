@@ -78,6 +78,14 @@
     <IncludePath>C:\Users\njsan\GitHub\Simple_Pong\Game\Libraries\include;C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\njsan\GitHub\Simple_Pong\Game\Libraries\lib;C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\Users\njsan\GitHub\Simple_Pong\Game\Libraries\include;C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\njsan\GitHub\Simple_Pong\Game\Libraries\lib;C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\njsan\GitHub\Simple_Pong\Game\Libraries\include;C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\njsan\GitHub\Simple_Pong\Game\Libraries\lib;C:\Users\njsan\GitHub\Game_OpenGL\Game\Libraries\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -88,7 +96,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -103,6 +111,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>freetype.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -115,7 +124,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -130,9 +139,11 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>freetype.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AI_Paddle.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="EBO.cpp" />
@@ -147,6 +158,7 @@
     <ClCompile Include="VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AI_Paddle.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="EBO.h" />

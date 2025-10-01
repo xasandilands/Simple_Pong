@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 #include"Shader.h"
 #include"VBO.h"
@@ -12,6 +14,8 @@
 #include"Texture.h"
 #include"Paddle.h"
 #include"Ball.h"
+#include"AI_Paddle.h"
+
 
 
 unsigned int width = 1400, height = 900;
@@ -19,10 +23,10 @@ unsigned int width = 1400, height = 900;
 // Vertices coordinates
 GLfloat vertices[] =
 { //     COORDINATES     /        COLORS      /   TexCoord  //
-	 0.5f, -0.025f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 0.0f,
-	 0.5f,  0.025f, 0.0f,    0.44f, 0.89f, 0.33f,   1.0f, 1.0f,
-	-0.5f,  0.025f, 0.0f,    0.44f, 0.89f, 0.33f,   0.0f, 1.0f,
-	-0.5f, -0.025f, 0.0f,    0.44f, 0.89f, 0.33f,   0.0f, 0.0f
+	 0.5f, -0.5f, 0.0f,   0.44f,0.89f,0.33f,   1.0f, 0.0f,
+	 0.5f,  0.5f, 0.0f,   0.44f,0.89f,0.33f,   1.0f, 1.0f,
+	-0.5f,  0.5f, 0.0f,   0.44f,0.89f,0.33f,   0.0f, 1.0f,
+	-0.5f, -0.5f, 0.0f,   0.44f,0.89f,0.33f,   0.0f, 0.0f
 };
 
 GLfloat BallVertices[] =
@@ -105,12 +109,23 @@ int main()
 
 	glm::mat4 projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, -1.0f, 1.0f);
 
-	Paddle paddle(glm::vec2(1300.0f, 450.0f), glm::vec2(200.0f, 400.0f));
+	Paddle paddle(glm::vec2(1300.0f, 450.0f), glm::vec2(20.0f, 200.0f));
 	Ball ball(glm::vec2(900.0f, 200.0f), 50.0f, glm::vec2(300.0f, 300.0f));
-	
 
+	AI_Paddle AI(glm::vec2(100.0f, 450.0f), glm::vec2(20.0f, 200.0f));
+	
 	float deltaTime = 0.0f;
 	float lastFrame = 0.0f;
+
+	FT_Library freetype;
+	FT_Error errorCode = FT_Init_FreeType(&freetype);
+
+	if (errorCode)
+	{
+		std::cout << "error code: \n" << errorCode << std::endl;
+		int keepOpen;
+		std::cin >> keepOpen;
+	}
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -131,11 +146,18 @@ int main()
 		paddle.Draw(spriteShader, VAO1, Bricks);
 		paddle.Inputs(deltaTime, window, height);
 
-		//glUniform1i(glGetUniformLocation(spriteShader.shaderRef, "useTex"), 1);
+		AI.Draw(spriteShader, VAO1, Bricks);
+
 		ball.Draw(spriteShader, VAO2, Circle);
 		ball.Movement(deltaTime, glm::vec2((float)width, (float)height));
 
+		AI.Move(ball.pos, deltaTime, height);
+
 		if(ball.hasCollided(paddle))
+		{
+			ball.handleCollision();
+		}
+		else if (ball.hasCollided(AI))
 		{
 			ball.handleCollision();
 		}

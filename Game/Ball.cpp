@@ -41,17 +41,15 @@ void Ball::Movement(float dTime, glm::vec2 windowSize)
 bool Ball::hasCollided(GameObject& paddle)
 {
 	{
-		if (pos.x < paddle.pos.x + paddle.scale.x &&
-			pos.x + scale.x/2.0f > paddle.pos.x &&
-			pos.y < paddle.pos.y + paddle.scale.y &&
-			pos.y + scale.y/2.0f > paddle.pos.y)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		glm::vec2 halfPaddle = paddle.scale * 0.5f;
+
+		float closestX = glm::clamp(pos.x, paddle.pos.x - halfPaddle.x, paddle.pos.x + halfPaddle.x);
+		float closestY = glm::clamp(pos.y, paddle.pos.y - halfPaddle.y, paddle.pos.y + halfPaddle.y);
+
+		float dx = pos.x - closestX;
+		float dy = pos.y - closestY;
+
+		return (dx * dx + dy * dy) <=(radius * radius);
 	}
 }
 
